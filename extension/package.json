@@ -1,0 +1,11 @@
+{
+  "name": "sidecar-extension",
+  "version": "0.1.0",
+  "description": "Sidecar Chrome Extension - AI Communication Assistant",
+  "private": true,
+  "scripts": {
+    "build": "echo 'No build step needed - plain JS extension'",
+    "watch": "echo 'No watch needed - Chrome auto-reloads'"
+  },
+  "devDependencies": {}
+}
