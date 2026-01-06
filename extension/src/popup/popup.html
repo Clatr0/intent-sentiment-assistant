@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidecar</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="logo">
+        <span class="logo-icon">📋</span>
+        <span class="logo-text">Sidecar</span>
+      </div>
+      <button id="openSidepanel" class="btn-icon" title="Open full panel">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 2h5v12H2V2zm7 0h5v12H9V2z"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button id="captureBtn" class="action-btn">
+        <span class="action-icon">📎</span>
+        <span class="action-text">Capture Selection</span>
+      </button>
+      <button id="newSituationBtn" class="action-btn">
+        <span class="action-icon">➕</span>
+        <span class="action-text">New Situation</span>
+      </button>
+    </div>
+
+    <!-- Active Situations -->
+    <div class="section">
+      <div class="section-header">
+        <h3>Active Situations</h3>
+        <span id="situationCount" class="count-badge">0</span>
+      </div>
+      <div id="situationsList" class="situations-list">
+        <div class="empty-state">
+          <p>No active situations</p>
+          <p class="hint">Create one to start tracking</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Situation Form (hidden by default) -->
+    <div id="newSituationForm" class="new-form hidden">
+      <input type="text" id="newTitle" placeholder="Situation title..." autofocus>
+      <textarea id="newDescription" placeholder="Brief description (optional)..." rows="2"></textarea>
+      <div class="form-actions">
+        <button id="cancelNew" class="btn-secondary">Cancel</button>
+        <button id="createNew" class="btn-primary">Create</button>
+      </div>
+    </div>
+
+    <!-- Capture Form (hidden by default) -->
+    <div id="captureForm" class="capture-form hidden">
+      <div class="capture-header">
+        <h4>Add to Situation</h4>
+        <button id="cancelCapture" class="btn-close">&times;</button>
+      </div>
+      <div class="capture-preview">
+        <p id="capturePreview">No content selected</p>
+      </div>
+      <select id="situationSelect">
+        <option value="">Select a situation...</option>
+      </select>
+      <div class="form-actions">
+        <button id="confirmCapture" class="btn-primary" disabled>Add</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <span class="status" id="llmStatus">
+        <span class="status-dot"></span>
+        <span>Checking LLM...</span>
+      </span>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

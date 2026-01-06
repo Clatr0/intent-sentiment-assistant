@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidecar - AI Communication Assistant</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="app-title">Sidecar</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="situations">
+          <span class="nav-icon">📋</span>
+          <span>Situations</span>
+        </button>
+        <button class="nav-item" data-view="settings">
+          <span class="nav-icon">⚙️</span>
+          <span>Settings</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="llm-status" id="llmStatus">
+          <span class="status-dot"></span>
+          <span>Checking...</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Situations View -->
+      <div id="situationsView" class="view active">
+        <div class="situations-layout">
+          <!-- List Panel -->
+          <div class="list-panel">
+            <div class="panel-header">
+              <h2>Situations</h2>
+              <button id="newSituationBtn" class="btn-primary btn-sm">+ New</button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-filter="all">All</button>
+              <button class="filter-tab" data-filter="active">Active</button>
+              <button class="filter-tab" data-filter="monitoring">Monitoring</button>
+              <button class="filter-tab" data-filter="resolved">Resolved</button>
+            </div>
+
+            <!-- Situation List -->
+            <div id="situationsList" class="situations-list">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Detail Panel -->
+          <div class="detail-panel" id="detailPanel">
+            <div class="empty-detail">
+              <div class="empty-icon">📋</div>
+              <h3>Select a Situation</h3>
+              <p>Choose a situation from the list to view details</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings View -->
+      <div id="settingsView" class="view">
+        <div class="settings-content">
+          <h2>Settings</h2>
+
+          <section class="settings-section">
+            <h3>Local LLM (Ollama)</h3>
+            <div class="setting-item">
+              <label>Endpoint URL</label>
+              <input type="text" id="llmEndpoint" placeholder="http://localhost:11434">
+            </div>
+            <div class="setting-item">
+              <label>Model</label>
+              <select id="llmModel">
+                <option value="llama3:8b">Llama 3 8B</option>
+                <option value="llama3:70b">Llama 3 70B</option>
+                <option value="mistral">Mistral</option>
+                <option value="mixtral">Mixtral</option>
+              </select>
+            </div>
+            <button id="testLlm" class="btn-secondary">Test Connection</button>
+          </section>
+
+          <section class="settings-section">
+            <h3>Cloud LLM (Claude)</h3>
+            <div class="setting-item">
+              <label class="checkbox-label">
+                <input type="checkbox" id="cloudEnabled">
+                <span>Enable Cloud Analysis</span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label>API Key</label>
+              <input type="password" id="cloudApiKey" placeholder="sk-ant-...">
+            </div>
+            <p class="setting-hint">
+              Cloud LLM is used for complex reasoning on anonymized data only.
+            </p>
+          </section>
+
+          <section class="settings-section">
+            <h3>Auto-Capture</h3>
+            <div class="setting-item">
+              <label class="checkbox-label">
+                <input type="checkbox" id="autoCapture">
+                <span>Enable automatic content capture</span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label class="checkbox-label">
+                <input type="checkbox" id="captureSlack" checked>
+                <span>Capture from Slack</span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <label class="checkbox-label">
+                <input type="checkbox" id="captureGmail" checked>
+                <span>Capture from Gmail</span>
+              </label>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h3>Data Management</h3>
+            <div class="setting-actions">
+              <button id="exportData" class="btn-secondary">Export All Data</button>
+              <button id="importData" class="btn-secondary">Import Data</button>
+              <button id="clearData" class="btn-danger">Clear All Data</button>
+            </div>
+            <div id="storageUsage" class="storage-usage">
+              <span>Storage: Calculating...</span>
+            </div>
+          </section>
+
+          <button id="saveSettings" class="btn-primary">Save Settings</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Situation Modal -->
+  <div id="newSituationModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>New Situation</h3>
+        <button class="btn-close" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="modalTitle" placeholder="e.g., Project Timeline Conflict">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="modalDescription" rows="3" placeholder="Brief description of the situation..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-close-modal>Cancel</button>
+        <button id="modalCreate" class="btn-primary">Create Situation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Participant Modal -->
+  <div id="addParticipantModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Participant</h3>
+        <button class="btn-close" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="participantName" placeholder="John Smith">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="participantEmail" placeholder="john@company.com">
+        </div>
+        <div class="form-group">
+          <label>Role in Situation</label>
+          <input type="text" id="participantRole" placeholder="e.g., Tech Lead, Stakeholder">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-close-modal>Cancel</button>
+        <button id="modalAddParticipant" class="btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>
